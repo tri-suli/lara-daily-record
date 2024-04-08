@@ -39,7 +39,11 @@ class AssocValue extends ValueObject implements Arrayable
             }
         }
 
-        $this->value = $attributes;
+        foreach ($attributes as $key => $value) {
+            if (in_array($key, $keys)) {
+                $this->value[$key] = $value;
+            }
+        }
     }
 
     /**
