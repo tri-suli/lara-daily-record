@@ -18,8 +18,8 @@ enum Gender: string
     public static function values(): array
     {
         return [
-            self::MALE,
-            self::FEMALE
+            self::MALE->value,
+            self::FEMALE->value
         ];
     }
 
