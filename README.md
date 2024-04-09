@@ -1,66 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
 
-## About Laravel
+This Dockerized Laravel application is designed to manage users and daily records. It includes features for capturing user data from an external API, storing it in a PostgreSQL database, and performing various operations such as viewing, searching, and deleting user records. Additionally, the application calculates and stores daily records, including total counts and average ages for male and female users.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Prerequisite
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Docker
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- **User Management**: Allows administrators to view, search, and delete user records. User records include attributes such as name, age, gender, and creation date.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **API Integration**: Retrieves user data from an external API (https://randomuser.me/api/?results=20) and stores it in the database. Prevents duplicate entries by checking each user's UUID property before storing.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Daily Record Calculation**: Calculates and stores daily records, including total counts and average ages for male and female users. Updates these records automatically at the end of each day.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Redis Integration**: Utilizes Redis to store and update total counts of male and female records for each day.
 
-## Laravel Sponsors
+## Setup
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+To set up and run the application using Docker, follow these steps:
 
-### Premium Partners
+1. Clone the repository to your local machine:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```
+git clone https://github.com/tri-suli/lara-daily-record.git
+```
+
+2. Navigate to the project directory:
+
+```
+cd project-directory
+```
+
+3. Build the Docker image:
+
+```
+docker-compose build
+```
+
+4. Run the Docker container:
+
+```
+docker-compose up -d
+```
+
+5. Prepare the application after running the container
+
+```
+docker-compose run --rm composer install
+docker-compose run --rm artisan migrate
+```
+
+6. Access the application in your web browser at `http://localhost:8080`.
+
+## Usage
+
+Once the application is set up and running, you can perform the following actions:
+
+- View all users: Navigate to the Users page to see a table displaying all user records.
+
+- Search users: Use the search functionality to filter users by name, age, gender, or creation date.
+
+- Delete users: Click on the delete button next to a user record to remove it from the database. This action will update the total counts of male and female records for the corresponding day.
+
+- View daily records: Access the Daily Records page to see a list of daily records, including total counts and average ages for male and female users.
+
+## Dependencies
+
+- Laravel Framework: Provides the core functionality and structure for the application.
+
+- PostgreSQL: Used as the database management system for storing user records and daily records.
+
+- Redis: Utilized for storing and updating total counts of male and female records.
+
+- Tailwind CSS: Used for styling the user interface and creating a visually appealing design.
+
+- Supervisor: Used to manage Laravel queue worker processes for handling background jobs.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, please submit a GitHub issue or pull request.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
+
+---
