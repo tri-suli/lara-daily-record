@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Gender;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid();
-            $table->string('gender')->unique();
-            $table->jsonb('name');
-            $table->jsonb('location')->nullable();
+            $table->enum('gender', Gender::values());
             $table->integer('age');
+            $table->jsonb('name');
+            $table->jsonb('location');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
