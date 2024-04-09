@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Base External API links
+    |--------------------------------------------------------------------------
+    |
+    | get random users => https://randomuser.me/api/?result=N, where N is number
+    |
+    */
+
+    'api' => [
+        'random_user' => env('APP_API_RANDOM_USER', 'https://randomuser.me/api/'),
+    ]
 ];
